@@ -1,0 +1,7 @@
+# Project exclude paths
+/common/service_utils/target/
+/model/target/
+/server-gateway/target/
+/service/service_cmn/target/
+/service/service_hosp/target/
+/service-client/service_cmn_client/target/

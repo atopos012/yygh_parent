@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HospitalServiceImpl implements HospitalService {
@@ -102,6 +99,22 @@ public class HospitalServiceImpl implements HospitalService {
         //医院基本信息（包含医院等级）
         map.put("hospital",hospital);
         //单独处理更直观
+        map.put("bookingRule", hospital.getBookingRule());
+        //不需要重复返回
+        hospital.setBookingRule(null);
+        return map;
+    }
+
+    @Override
+    public List<Hospital> findByHosname(String hosname) {
+        return hospitalRepository.findHospitalByHosnameLike(hosname);
+    }
+
+    @Override
+    public Map<String, Object> item(String hoscode) {
+        Map<String,Object> map = new HashMap<>();
+        Hospital hospital = this.packHospital(this.hospitalRepository.findByHoscode(hoscode));
+        map.put("hospital",hospital);
         map.put("bookingRule", hospital.getBookingRule());
         //不需要重复返回
         hospital.setBookingRule(null);
